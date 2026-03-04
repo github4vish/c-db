@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Churn Prediction Dashboard</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- D3 + Crossfilter + DC -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://unpkg.com/crossfilter2/crossfilter.min.js"></script>
+<script src="https://unpkg.com/dc@4/dist/dc.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/dc@4/dist/style/dc.css"/>
+
+<style>
+#barChart, #pieChart {
+    height: 300px;
+}
+</style>
+</head>
+
+
+<body class="container mt-4">
+
+<!-- ------------------------------------------------- -->
+<h2 class="text-center mb-4">Customer Churn Dashboard</h2>
+<!-- ------------------------------------------------- -->
+
+
+<!-- ------------------------------------------------- -->
+<!-- KPI CARDS -->
+<!-- ------------------------------------------------- -->
+<div class="row text-center mb-4">
+
+    <div class="col-md-4">
+        <div class="card p-3 shadow-sm">
+            <h6>Model Accuracy</h6>
+            <h3 id="accuracy">Loading...</h3>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-3 shadow-sm">
+            <h6>Total Customers</h6>
+            <h3 id="totalCustomers">Loading...</h3>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-3 shadow-sm">
+            <h6>Churn Rate</h6>
+            <h3 id="churnRate">Loading...</h3>
+        </div>
+    </div>
+
+</div>
+<!-- ------------------------------------------------- -->
+
+
+<!-- ------------------------------------------------- -->
+<!-- CONFUSION MATRIX + FEATURE IMPORTANCE -->
+<!-- ------------------------------------------------- -->
+<div class="row mb-4">
+
+    <div class="col-md-6">
+        <div class="card p-3 shadow-sm">
+            <h6 class="text-center">Confusion Matrix</h6>
+            <div id="confusionMatrix"></div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card p-3 shadow-sm">
+            <h6 class="text-center">Feature Importance</h6>
+            <div id="featureChart" style="height:300px;"></div>
+        </div>
+    </div>
+
+</div>
+<!-- ------------------------------------------------- -->
+
+
+<!-- ------------------------------------------------- -->
+<!-- CHURN DISTRIBUTION + AGE VS CHURN -->
+<!-- ------------------------------------------------- -->
+<div class="row mb-4">
+
+    <div class="col-md-6">
+        <div class="card p-3 shadow-sm">
+            <h6 class="text-center">Churn Distribution</h6>
+            <div id="pieChart" style="height:300px;"></div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card p-3 shadow-sm">
+            <h6 class="text-center">Age vs Churn</h6>
+            <div id="barChart" style="height:300px;"></div>
+        </div>
+    </div>
+
+</div>
+<!-- ------------------------------------------------- -->
+
+
+<!-- ------------------------------------------------- -->
+<!-- PREDICTION FORM -->
+<!-- ------------------------------------------------- -->
+<div class="card p-4 shadow-sm mb-5">
+    <h5 class="mb-3">Predict New Customer</h5>
+
+    <div class="row g-2">
+        <div class="col-md-2">
+            <input class="form-control" id="age" placeholder="Age">
+        </div>
+        <div class="col-md-2">
+            <input class="form-control" id="gender" placeholder="Gender (1=M)">
+        </div>
+        <div class="col-md-2">
+            <input class="form-control" id="spend" placeholder="Monthly Spend">
+        </div>
+        <div class="col-md-2">
+            <input class="form-control" id="tenure" placeholder="Tenure">
+        </div>
+        <div class="col-md-2">
+            <input class="form-control" id="visits" placeholder="Visits/Month">
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary w-100" onclick="predict()">Predict</button>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <h6 id="predictionResult"></h6>
+    </div>
+</div>
+<!-- ------------------------------------------------- -->
+
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+</body>
+</html>
