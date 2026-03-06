@@ -5,17 +5,17 @@ from sklearn.ensemble import RandomForestClassifier
 import joblib
 
 
-import os
-from pathlib import Path
+# import os
+# from pathlib import Path
 
-project_root = Path(os.environ["PROJECT_ROOT"])
+# project_root = Path(os.environ["PROJECT_ROOT"])
 
-data_path = project_root / "data" / "churn_data.csv"
-scaler_path = project_root / "models" / "scaler.pkl"
-model_path = project_root / "models" / "model.pkl"
+# data_path = project_root / "data" / "churn_data.csv"
+# scaler_path = project_root / "models" / "scaler.pkl"
+# model_path = project_root / "models" / "model.pkl"
 
 # Load Dataset
-data = pd.read_csv(data_path)
+data = pd.read_csv("churn_ data.csv")
 
 # Encode Gender
 le = LabelEncoder()
@@ -38,8 +38,8 @@ model = RandomForestClassifier()
 model.fit(X_train, y_train)
 
 # Save model & scaler
-joblib.dump(scaler, scaler_path)
-joblib.dump(model, model_path)
+joblib.dump(scaler, "scaler.pkl")
+joblib.dump(model, "churn_model.pkl")
 
 
 print("Model saved successfully!")
